@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.arrowBtn svg {
+  width: 25px;
+  height: 25px;
+}
+
+.arrowBtn {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  flex: 0 0 auto
+}

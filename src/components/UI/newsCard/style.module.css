@@ -1,0 +1,35 @@
+.container {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(37, 37, 37);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.25s linear;
+}
+
+@media (hover: hover) {
+  .container:hover {
+    transform: scale(1.03);
+  }
+}
+
+.container header {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.author {
+  margin: 10px 0 0 0;
+}
+
+.date {
+  margin: 5px 0 0 0;
+  color: rgba(255, 255, 255, 0.495);
+}
+
+.main {
+  flex: 1 0 auto;
+}
