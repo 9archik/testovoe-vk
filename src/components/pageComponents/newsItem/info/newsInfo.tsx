@@ -13,7 +13,7 @@ const NewsInfo = () => {
     const func = async () => {
 
       let res = await getNewsItemDetail(Number(id));
-      console.log('res', res)
+  
       if (res) setInfo(res);
     };
 

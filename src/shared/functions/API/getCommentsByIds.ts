@@ -11,7 +11,7 @@ export async function getCommentsByIds(commentIds: number[]) {
 				);
 				const commentData = await response.json();
 
-                console.log('comment', commentData)
+     
 
 				if (commentData?.deleted) {
 					comments.push({

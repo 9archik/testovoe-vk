@@ -60,7 +60,7 @@ const NewsList = () => {
 
   useEffect(() => {
     let func = async () => {
-      console.log("list", ids);
+ 
       let idList = ids.slice((activePage - 1) * 50, activePage * 50);
       setListNews([]);
       let news = await fetchNewsDetails(idList);

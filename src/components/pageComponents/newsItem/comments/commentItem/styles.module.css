@@ -3,6 +3,10 @@
     max-width:100%;
 }
 
+.container div{
+    overflow-wrap: break-word;
+}
+
 .container button {
   color: black;
 }
