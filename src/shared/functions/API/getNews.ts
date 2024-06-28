@@ -1,6 +1,6 @@
-import { INewsListSlice, ISetNewsAction } from "../../../redux/slices/newsList/interface";
+import { INewsListSlice} from "../../../redux/slices/newsList/interface";
 
-export async function fetchStories(type: ISetNewsAction['type']): Promise<number[]> {
+export async function fetchStories(type: 'top' | 'new' | 'best'): Promise<number[]> {
 	try {
 		const response = await fetch(`https://hacker-news.firebaseio.com/v0/${type}stories.json`)
 			.then()
@@ -37,7 +37,7 @@ export async function fetchNewsDetails(storyIds: number[]): Promise<any> {
 	return Promise.all(promises);
 }
 
-export async function getNews(type: ISetNewsAction['type']) {
+export async function getNews(type: 'top' | 'new' | 'best') {
 	try {
 		const storyIds = await fetchStories(type);
 		const newsDetails = await fetchNewsDetails(storyIds);

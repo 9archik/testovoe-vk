@@ -15,12 +15,12 @@ import Pagination from "./pagination/pagination";
 import { useInterval } from "../../../../shared/hooks/useInterval";
 const NewsList = () => {
   const filterValue = useAppSelector((state) => state.newsList.filter);
-  const newsState = useAppSelector((state) => state.newsList[filterValue]);
   const dispatch = useAppDispatch();
   const [ids, setIds] = useState<number[]>([]);
   const [activePage, setActivePage] = useState(1);
   const [pageCount, setPageCount] = useState<number>(-1);
   const [listNews, setListNews] = useState<null | any[]>(null);
+  const [update, setUpdate] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,20 +39,24 @@ const NewsList = () => {
     func();
   }, [filterValue]);
 
-  useInterval(() => {
-    const func = async () => {
-      let ids = await fetchStories(filterValue);
-      let count = ids.length / 50;
-      setPageCount(count);
-      ids = ids.slice(activePage - 1, activePage * 50);
-      let news = await fetchNewsDetails(ids);
-      setListNews(news);
-      if (activePage > count) {
-        setActivePage(count);
-      }
-    };
-    func();
-  }, 30000);
+  useInterval(
+    () => {
+      const func = async () => {
+        let idList = await fetchStories(filterValue);
+        setIds(idList);
+        let count = ids.length / 50;
+        setPageCount(count);
+        idList = idList.slice((activePage - 1) * 50, activePage * 50);
+        let news = await fetchNewsDetails(idList);
+        setListNews(news);
+        if (activePage > count) {
+          setActivePage(count);
+        }
+      };
+      func();
+    },
+    update ? 30000 : null
+  );
 
   useEffect(() => {
     let func = async () => {
@@ -66,10 +70,28 @@ const NewsList = () => {
     if (listNews !== null) func();
   }, [activePage]);
 
-  console.log("news", listNews);
+  const updateClick = async () => {
+    setUpdate(false);
+    setListNews([]);
+    let idList = await fetchStories(filterValue);
+    setIds(idList);
+    let count = ids.length / 50;
+    setPageCount(count);
+    idList = idList.slice((activePage - 1) * 50, activePage * 50);
+    let news = await fetchNewsDetails(idList);
+    setListNews(news);
+    if (activePage > count) {
+      setActivePage(count);
+    }
+
+    setUpdate(true);
+  };
 
   return (
     <>
+      <button onClick={updateClick} className={styles.btnUpdate}>
+        Обновить список
+      </button>
       <div className={styles.container}>
         {listNews &&
           listNews.map((el) => {

@@ -123,11 +123,11 @@ const Comments = () => {
     <>
       <button
         onClick={() => {
-          setOpen(true);
+          setOpen(!open);
         }}
-        style={{ color: "black" }}
+        style={{ color: "black", marginTop: 20 }}
       >
-        Открыть комментарии
+        {open ? "Закрыть" : "Открыть"} комментарии
       </button>
       {open && (
         <CommentList
